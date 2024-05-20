@@ -1,10 +1,13 @@
 import { useState } from 'react';
 
+const arrColors = ['red', 'yellow', 'green'];
+
 export const FunctionalTrafficLight = () => {
   const [lightState, setLightState] = useState(0);
 
   const changeLight = () => {
-    lightState === 2 ? setLightState(0) : setLightState(lightState + 1);
+    const newColorIndexValue = lightState === 0 ? arrColors.length - 1 : lightState - 1;
+    setLightState(newColorIndexValue);
   };
 
   return (
@@ -12,9 +15,9 @@ export const FunctionalTrafficLight = () => {
       <h2>Functional Traffic Light</h2>
       <div className='traffic-light'>
         {/* Background color can be black | yellow | red | green */}
-        <div className={`circle ${lightState === 0 ? 'red' : 'black'}`}></div>
-        <div className={`circle ${lightState === 2 ? 'yellow' : 'black'}`}></div>
-        <div className={`circle ${lightState === 1 ? 'green' : 'black'}`}></div>
+        {arrColors.map((color) => (
+          <div className={`circle ${lightState === arrColors.indexOf(color) ? color : 'black'}`}></div>
+        ))}
       </div>
       <button className='next-state-button' onClick={changeLight}>
         Next State
